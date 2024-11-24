@@ -1,7 +1,7 @@
 import { BookImage } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { buttonVariants } from "../ui/button";
+import { buttonVariants } from "../../../components/ui/button";
 
 export default function Navbar() {
   return (
