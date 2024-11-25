@@ -1,24 +1,28 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
-export default async function DashboardPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+export default async function Dashboard() {
+  const { userId } = await auth();
 
-  if (!session) {
-    return redirect("/");
+  if (!userId) {
+    return <div>You are not logged in</div>;
   }
 
-  const user = session?.user;
+  const user = await currentUser();
 
   return (
-    <div className="mt-10 text-center">
-      <h1 className="text-2xl font-bold underline">Welcome to MiniZine</h1>
-      <ul>
-        <li>Name: {user.name}</li>
-        <li>Email: {user.email}</li>
+    <div className="mt-10 text-start max-w-xl mx-auto bg-neutral-200 p-5 rounded">
+      <h1 className="text-4xl font-bold">Welcome</h1>
+      <ul className="list-none mt-10">
+        <li className="mb-2">
+          <span className="font-semibold">First Name:</span> {user?.firstName}
+        </li>
+        <li className="mb-2">
+          <span className="font-semibold">Last Name:</span> {user?.lastName}
+        </li>
+        <li className="mb-2">
+          <span className="font-semibold">Email:</span>{" "}
+          {user?.emailAddresses[0].emailAddress}
+        </li>
       </ul>
     </div>
   );
