@@ -25,9 +25,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { formSchema } from "@/lib/auth-schema";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
-  // 1. Define your form.
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,8 +41,30 @@ export default function SignUp() {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { name, email, password } = values;
+    const { data, error } = await authClient.signUp.email(
+      {
+        email,
+        password,
+        name,
+      },
+      {
+        onRequest: () => {
+          toast({
+            title: "Please wait...",
+          });
+        },
+        onSuccess: () => {
+          form.reset();
+          router.push("/sign-in");
+        },
+        onError: (ctx) => {
+          alert(ctx.error.message);
+        },
+      }
+    );
+    console.log({ data, error });
     console.log(values);
   }
   return (
