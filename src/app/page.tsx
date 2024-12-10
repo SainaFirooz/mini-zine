@@ -1,7 +1,15 @@
-export default function Home() {
+import { Hero } from "@/components/sections/hero";
+import { LogoTicker } from "@/components/sections/logoTicker";
+import { ProductShowcase } from "@/components/sections/productShowcase";
+import { Footer } from "@/components/sections/footer";
+
+export default function HomePage() {
   return (
-    <div>
-      <h1 className="font-bold text-center mt-10">Mini Zine</h1>
-    </div>
+    <>
+      <Hero />
+      <LogoTicker />
+      <ProductShowcase />
+      <Footer />
+    </>
   );
 }

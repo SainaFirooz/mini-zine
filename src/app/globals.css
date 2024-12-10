@@ -6,6 +6,32 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+@layer components {
+  .container {
+    @apply mx-auto max-w-6xl xl:max-w-7xl px-8;
+  }
+
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium inline-flex items-center justify-center tracking-tight;
+  }
+
+  .btn-primary {
+    @apply bg-black text-white;
+  }
+
+  .btn-text {
+    @apply text-black bg-transparent;
+  }
+
+  .logo-ticker-image {
+    @apply h-8 w-auto;
+  }
+
+  .tag {
+    @apply text-sm inline-flex border border-[#222]/10 px-3 py-1 rounded-lg tracking-tight;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

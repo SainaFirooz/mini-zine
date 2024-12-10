@@ -2,19 +2,33 @@ import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { Button } from "./ui/button";
+// import Image from "next/image";
+import MenuIcon from "@/app/assets/menu.svg";
+// import Logo from "@/app/assets/logo.png";
+import Logo from "./ui/logo";
 
 export default async function header() {
   const { userId } = await auth();
 
   return (
-    <div className="bg-gray-600 text-neutral-100">
-      <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
-        <Link href="/">Home</Link>
-        <div>
+    <header className="sticky top-0 backdrop-blur-sm z-20">
+      <div className="container flex flex-col sm:flex-row sm:justify-between sm:items-center flex-wrap gap-4 py-8">
+        <Logo />
+        <MenuIcon className="h-5 w-5 md:hidden" />
+        <nav className="hidden md:flex gap-6 text-black/60 items-center">
+          <Link href="/about">About</Link>
+          <Link href="/help">Help</Link>
           {userId ? (
             <div className="flex gap-4 items-center">
-              <Link href="/dashboard">Dashboard</Link>
-              <UserButton />
+              <Link
+                href="/dashboard"
+                className="bg-black text-white px-4 py-2 rounded-lg font-medium inline-flex items-center justify-center tracking-tight gap-4"
+              >
+                Dashboard
+              </Link>
+              <div className="relative">
+                <UserButton />
+              </div>
             </div>
           ) : (
             <div className="flex gap-4 items-center">
@@ -26,8 +40,8 @@ export default async function header() {
               </Link>
             </div>
           )}
-        </div>
+        </nav>
       </div>
-    </div>
+    </header>
   );
 }
