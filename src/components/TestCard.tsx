@@ -6,7 +6,6 @@ type Props = {
   cardName: string;
   style?: React.CSSProperties;
   rotateImage?: boolean;
-  onImageUpload?: (imageUrl: string) => void;
 };
 
 interface TextBlock {
@@ -16,7 +15,7 @@ interface TextBlock {
   left: number;
 }
 
-function TestCard({ cardName, style, rotateImage, onImageUpload }: Props) {
+function TestCard({ cardName, style, rotateImage }: Props) {
   const [image, setImage] = useState<string | null>(null);
   const [textBlocks, setTextBlocks] = useState<TextBlock[]>([]);
   const selectedBlock = useRef<string | null>(null);
@@ -72,11 +71,6 @@ function TestCard({ cardName, style, rotateImage, onImageUpload }: Props) {
 
         const data = await res.json();
         setImage(data.fileUrl);
-
-        // Anropa callback för att skicka bild-URL till föräldrakomponenten
-        if (onImageUpload) {
-          onImageUpload(data.fileUrl);
-        }
       } catch (error) {
         console.error(error);
       }
@@ -148,11 +142,11 @@ function TestCard({ cardName, style, rotateImage, onImageUpload }: Props) {
   return (
     <div
       ref={containerRef}
-      className="relative bg-cyan-400 w-60 h-96 rounded overflow-hidden"
+      className="relative bg-cyan-400 w-60 h-96 rounded overflow-hidden	"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
-      <div className="relative flex items-center justify-center h-full text-center">
+      <div className="relative flex items-center justify-center h-full text-center border border-solid border-black">
         <h1 className="" style={style}>
           {cardName}
         </h1>

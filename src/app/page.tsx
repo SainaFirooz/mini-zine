@@ -6,10 +6,10 @@ import { Footer } from "@/components/sections/footer";
 export default function HomePage() {
   return (
     <>
-      {/* <Hero />
+      <Hero />
       <LogoTicker />
       <ProductShowcase />
-      <Footer /> */}
+      <Footer />
     </>
   );
 }

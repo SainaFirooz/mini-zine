@@ -8,11 +8,6 @@ type Props = {
 
 const PDFGenerator = ({ images }: Props) => {
   const handleGeneratePDF = async () => {
-    if (images.length !== 8) {
-      alert("Vänligen ladda upp alla åtta bilder innan du skapar PDF.");
-      return;
-    }
-
     try {
       const pdfDoc = await PDFDocument.create();
       const page = pdfDoc.addPage([595.28, 841.89]); // A4 dimensioner i punkter (bredd x höjd)
