@@ -46,11 +46,36 @@ function TestCard({cardName, style, rotateImage}: Props) {
     }
   }, [image]);
 
-  function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
+  // function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
+  //   if (e.target.files && e.target.files[0]) {
+  //     const file = e.target.files[0];
+  //     const imageUrl = URL.createObjectURL(file);
+  //     setImage(imageUrl);
+  //   }
+  // }
+ 
+  // changed for file upload
+  async function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
+      const formData = new FormData();
+      formData.append('file', file);
+  
+      try {
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+  
+        if (!res.ok) {
+          throw new Error('Failed to upload file');
+        }
+  
+        const data = await res.json();
+        setImage(data.fileUrl); 
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 
@@ -88,8 +113,29 @@ function TestCard({cardName, style, rotateImage}: Props) {
     );
   }
 
-  const handleDeleteImage = () => {
-    setImage(null)
+  // When user deletes the image it's removed from the server
+  async function handleDeleteImage() {
+    if (!image) return;
+  
+    const fileName = image.split('/uploads/')[1]; 
+    console.log('File name:', fileName);
+
+  
+    try {
+      const res = await fetch('/api/delete-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fileName }),
+      });
+  
+      if (!res.ok) {
+        throw new Error('Failed to delete the file on the server');
+      }
+  
+      setImage(null); 
+    } catch (error) {
+      console.error('Error deleting image:', error);
+    }
   }
 
   function handleMouseUp() {
