@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 type Props = {
   cardName: string;
   style?: React.CSSProperties;
   rotateImage?: boolean;
-  
+  onImageUpload?: (imageUrl: string) => void;
 };
 
 interface TextBlock {
@@ -16,12 +16,11 @@ interface TextBlock {
   left: number;
 }
 
-function TestCard({cardName, style, rotateImage}: Props) {
+function TestCard({ cardName, style, rotateImage, onImageUpload }: Props) {
   const [image, setImage] = useState<string | null>(null);
   const [textBlocks, setTextBlocks] = useState<TextBlock[]>([]);
   const selectedBlock = useRef<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
 
   useEffect(() => {
     const savedTextBlocks = localStorage.getItem("textBlocks");
@@ -40,9 +39,9 @@ function TestCard({cardName, style, rotateImage}: Props) {
 
   useEffect(() => {
     if (image) {
-      localStorage.setItem('image', image);
+      localStorage.setItem("image", image);
     } else {
-      localStorage.removeItem('image');
+      localStorage.removeItem("image");
     }
   }, [image]);
 
@@ -53,26 +52,31 @@ function TestCard({cardName, style, rotateImage}: Props) {
   //     setImage(imageUrl);
   //   }
   // }
- 
+
   // changed for file upload
   async function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const formData = new FormData();
-      formData.append('file', file);
-  
+      formData.append("file", file);
+
       try {
-        const res = await fetch('/api/upload', {
-          method: 'POST',
+        const res = await fetch("/api/upload", {
+          method: "POST",
           body: formData,
         });
-  
+
         if (!res.ok) {
-          throw new Error('Failed to upload file');
+          throw new Error("Failed to upload file");
         }
-  
+
         const data = await res.json();
-        setImage(data.fileUrl); 
+        setImage(data.fileUrl);
+
+        // Anropa callback för att skicka bild-URL till föräldrakomponenten
+        if (onImageUpload) {
+          onImageUpload(data.fileUrl);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -90,7 +94,7 @@ function TestCard({cardName, style, rotateImage}: Props) {
   }
 
   function handleMouseDown(e: React.MouseEvent, id: string) {
-    selectedBlock.current = id; 
+    selectedBlock.current = id;
   }
 
   function handleMouseMove(e: React.MouseEvent) {
@@ -116,30 +120,29 @@ function TestCard({cardName, style, rotateImage}: Props) {
   // When user deletes the image it's removed from the server
   async function handleDeleteImage() {
     if (!image) return;
-  
-    const fileName = image.split('/uploads/')[1]; 
-    console.log('File name:', fileName);
 
-  
+    const fileName = image.split("/uploads/")[1];
+    console.log("File name:", fileName);
+
     try {
-      const res = await fetch('/api/delete-image', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/delete-image", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fileName }),
       });
-  
+
       if (!res.ok) {
-        throw new Error('Failed to delete the file on the server');
+        throw new Error("Failed to delete the file on the server");
       }
-  
-      setImage(null); 
+
+      setImage(null);
     } catch (error) {
-      console.error('Error deleting image:', error);
+      console.error("Error deleting image:", error);
     }
   }
 
   function handleMouseUp() {
-    selectedBlock.current = null; 
+    selectedBlock.current = null;
   }
 
   return (
@@ -150,17 +153,19 @@ function TestCard({cardName, style, rotateImage}: Props) {
       onMouseUp={handleMouseUp}
     >
       <div className="relative flex items-center justify-center h-full text-center">
-      <h1 className="" style={style}>{cardName}</h1>
-      
-      {image && (
-        <Image
-          src={image}
-          alt="Uploaded Image"
-          layout="fill"
-          objectFit="cover"
-          style={rotateImage ? { transform: 'rotate(3.142rad)' } : {}}
-        />
-      )}
+        <h1 className="" style={style}>
+          {cardName}
+        </h1>
+
+        {image && (
+          <Image
+            src={image}
+            alt="Uploaded Image"
+            layout="fill"
+            objectFit="cover"
+            style={rotateImage ? { transform: "rotate(3.142rad)" } : {}}
+          />
+        )}
       </div>
 
       <button
@@ -180,9 +185,6 @@ function TestCard({cardName, style, rotateImage}: Props) {
           }}
           onMouseDown={(e) => handleMouseDown(e, block.id)}
         >
-
-
-          
           <input
             type="text"
             value={block.content}
@@ -201,25 +203,23 @@ function TestCard({cardName, style, rotateImage}: Props) {
       {/* removes upload input if image is there */}
 
       {image ? null : (
-       <input
-       type="file"
-       accept="image/*"
-       onChange={onChangeImage}
-       className="absolute bottom-2 left-2 bg-white bg-opacity-75 p-1 rounded text-xs"
-     />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={onChangeImage}
+          className="absolute bottom-2 left-2 bg-white bg-opacity-75 p-1 rounded text-xs"
+        />
       )}
       {/* delete image button shows up instead */}
 
-      {image && ( 
-      <button
-        onClick={handleDeleteImage}
-        className="absolute top-2 right-2  bg-white bg-opacity-75 p-1 rounded text-xs"
-      >
-        Delete Image
-      </button>
+      {image && (
+        <button
+          onClick={handleDeleteImage}
+          className="absolute top-2 right-2  bg-white bg-opacity-75 p-1 rounded text-xs"
+        >
+          Delete Image
+        </button>
       )}
-      
-    
     </div>
   );
 }
