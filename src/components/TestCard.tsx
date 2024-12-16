@@ -7,6 +7,7 @@ type Props = {
   style?: React.CSSProperties;
   rotateImage?: boolean;
   onImageUpload?: (imageUrl: string) => void;
+  index: number
 };
 
 interface TextBlock {
@@ -15,41 +16,50 @@ interface TextBlock {
   top: number;
   left: number;
 }
+interface CardData {
+  image: string,
+  text: string
+ 
+}
 
-function TestCard({ cardName, style, rotateImage, onImageUpload }: Props) {
+function TestCard({ cardName, style, rotateImage, onImageUpload,index }: Props) {
   const [image, setImage] = useState<string | null>(null);
   const [textBlocks, setTextBlocks] = useState<TextBlock[]>([]);
   const selectedBlock = useRef<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const savedTextBlocks = localStorage.getItem("textBlocks");
-    const savedImage = localStorage.getItem("image");
-    if (savedTextBlocks) {
-      setTextBlocks(JSON.parse(savedTextBlocks));
-    }
-    if (savedImage) {
-      setImage(savedImage);
-    }
-  }, []);
+  // useEffect(() => {
+ 
+  //   const cardData = localStorage.getItem(`card${index}`);
+  //   if (cardData) {
+      
+  //     const blabla = JSON.parse(cardData)
+  //     console.log(">>>>>",blabla.image.replace("blob:",""))
+  //     setImage(blabla.image.replace("blob:","") || "")
+  //     setTextBlocks([blabla.text])
+  //   }
+   
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem("textBlocks", JSON.stringify(textBlocks));
-  }, [textBlocks]);
+  // useEffect(() => {
+  //   localStorage.setItem("textBlocks", JSON.stringify(textBlocks));
+  // }, [textBlocks]);
 
-  useEffect(() => {
-    if (image) {
-      localStorage.setItem("image", image);
-    } else {
-      localStorage.removeItem("image");
-    }
-  }, [image]);
+  // useEffect(() => {
+  //   if (image) {
+  //     localStorage.setItem("image", image);
+  //   } else {
+  //     localStorage.removeItem("image");
+  //   }
+  // }, [image]);
 
   // function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
   //   if (e.target.files && e.target.files[0]) {
   //     const file = e.target.files[0];
   //     const imageUrl = URL.createObjectURL(file);
-  //     setImage(imageUrl);
+
+  //     localStorage.setItem(`card${index}`,JSON.stringify( {image:imageUrl, text:"text"}))
+  //     // setImage(imageUrl);
   //   }
   // }
 

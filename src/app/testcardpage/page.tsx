@@ -22,6 +22,7 @@ function page({}: Props) {
       <div className="flex flex-row w-full gap-2 flex-wrap columns-8">
         {[...Array(8)].map((_, index) => (
           <TestCard
+          index={index}
             key={index}
             cardName={`Page ${index + 1}`}
             rotateImage={index < 4}
