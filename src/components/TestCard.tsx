@@ -6,6 +6,7 @@ type Props = {
   cardName: string;
   style?: React.CSSProperties;
   rotateImage?: boolean;
+  hideButton?: boolean;
 };
 
 interface TextBlock {
@@ -15,7 +16,7 @@ interface TextBlock {
   left: number;
 }
 
-function TestCard({ cardName, style, rotateImage }: Props) {
+function TestCard({ cardName, style, rotateImage, hideButton }: Props) {
   const [image, setImage] = useState<string | null>(null);
   const [textBlocks, setTextBlocks] = useState<TextBlock[]>([]);
   const selectedBlock = useRef<string | null>(null);
