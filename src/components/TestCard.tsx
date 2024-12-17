@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 type Props = {
   cardName: string;
   style?: React.CSSProperties;
   rotateImage?: boolean;
-  hideButton?: boolean;
+  isHidden: boolean;
 };
 
 interface TextBlock {
@@ -16,12 +16,11 @@ interface TextBlock {
   left: number;
 }
 
-function TestCard({ cardName, style, rotateImage, hideButton }: Props) {
+function TestCard({ cardName, style, rotateImage, isHidden  }: Props) {
   const [image, setImage] = useState<string | null>(null);
   const [textBlocks, setTextBlocks] = useState<TextBlock[]>([]);
   const selectedBlock = useRef<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
 
 
     function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
@@ -72,6 +71,8 @@ function TestCard({ cardName, style, rotateImage, hideButton }: Props) {
     setImage(null);
   }
 
+  
+
   function handleMouseUp() {
     selectedBlock.current = null;
   }
@@ -100,6 +101,7 @@ function TestCard({ cardName, style, rotateImage, hideButton }: Props) {
       </div>
 
       <button
+        style={isHidden ? { visibility: "hidden" } : { }}
         onClick={addTextBlock}
         className="absolute top-2 left-2 z-10 bg-white bg-opacity-75 p-1 rounded text-xs"
       >
@@ -131,7 +133,7 @@ function TestCard({ cardName, style, rotateImage, hideButton }: Props) {
         </div>
       ))}
 
-     
+      
 
       {image ? null : (
         <input
@@ -141,10 +143,11 @@ function TestCard({ cardName, style, rotateImage, hideButton }: Props) {
           className="absolute bottom-2 left-2 bg-white bg-opacity-75 p-1 rounded text-xs"
         />
       )}
-    
+     
 
       {image && (
         <button
+        style={isHidden ? { display: "none" } : { }}
           onClick={handleDeleteImage}
           className="absolute top-2 right-2  bg-white bg-opacity-75 p-1 rounded text-xs"
         >
