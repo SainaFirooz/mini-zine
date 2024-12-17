@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 type Props = {
   cardName: string;
@@ -21,62 +21,17 @@ function TestCard({ cardName, style, rotateImage, hideButton }: Props) {
   const [textBlocks, setTextBlocks] = useState<TextBlock[]>([]);
   const selectedBlock = useRef<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  
 
-  useEffect(() => {
-    const savedTextBlocks = localStorage.getItem("textBlocks");
-    const savedImage = localStorage.getItem("image");
-    if (savedTextBlocks) {
-      setTextBlocks(JSON.parse(savedTextBlocks));
-    }
-    if (savedImage) {
-      setImage(savedImage);
-    }
-  }, []);
 
-  useEffect(() => {
-    localStorage.setItem("textBlocks", JSON.stringify(textBlocks));
-  }, [textBlocks]);
-
-  useEffect(() => {
-    if (image) {
-      localStorage.setItem("image", image);
-    } else {
-      localStorage.removeItem("image");
-    }
-  }, [image]);
-
-  // function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
-  //   if (e.target.files && e.target.files[0]) {
-  //     const file = e.target.files[0];
-  //     const imageUrl = URL.createObjectURL(file);
-  //     setImage(imageUrl);
-  //   }
-  // }
-
-  // changed for file upload
-  async function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
+    function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      const formData = new FormData();
-      formData.append("file", file);
-
-      try {
-        const res = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-        });
-
-        if (!res.ok) {
-          throw new Error("Failed to upload file");
-        }
-
-        const data = await res.json();
-        setImage(data.fileUrl);
-      } catch (error) {
-        console.error(error);
-      }
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl);
     }
   }
+
 
   function addTextBlock() {
     const newTextBlock: TextBlock = {
@@ -112,28 +67,9 @@ function TestCard({ cardName, style, rotateImage, hideButton }: Props) {
     );
   }
 
-  // When user deletes the image it's removed from the server
   async function handleDeleteImage() {
     if (!image) return;
-
-    const fileName = image.split("/uploads/")[1];
-    console.log("File name:", fileName);
-
-    try {
-      const res = await fetch("/api/delete-image", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fileName }),
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to delete the file on the server");
-      }
-
-      setImage(null);
-    } catch (error) {
-      console.error("Error deleting image:", error);
-    }
+    setImage(null);
   }
 
   function handleMouseUp() {
@@ -195,7 +131,7 @@ function TestCard({ cardName, style, rotateImage, hideButton }: Props) {
         </div>
       ))}
 
-      {/* removes upload input if image is there */}
+     
 
       {image ? null : (
         <input
@@ -205,7 +141,7 @@ function TestCard({ cardName, style, rotateImage, hideButton }: Props) {
           className="absolute bottom-2 left-2 bg-white bg-opacity-75 p-1 rounded text-xs"
         />
       )}
-      {/* delete image button shows up instead */}
+    
 
       {image && (
         <button
