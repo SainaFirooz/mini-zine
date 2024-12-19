@@ -1,24 +1,24 @@
 "use client";
 
 import TestCard from "@/components/TestCard";
-import React , { useState } from "react";
+import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
 
-import generatePDF, { usePDF, Options } from "react-to-pdf";
+import generatePDF, { Options } from "react-to-pdf";
 
 type Props = {};
 
 function page({}: Props) {
-  // const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-  const [isHidden, setIsHidden] = useState<boolean>(false)
+  const [isHidden, setIsHidden] = useState<boolean>(false);
 
   const options: Options = {
-    filename: 'mini-zine.pdf',
+    filename: "mini-zine.pdf",
     method: "open",
     page: {
-      orientation: 'landscape',
-    }
-  }
+      orientation: "landscape",
+    },
+  };
 
   // Callback för att hantera uppladdade bilder
   const handleImageUpload = (index: number, imageUrl: string) => {
@@ -31,52 +31,54 @@ function page({}: Props) {
   const getTargetElement = () => document.getElementById("targetRef");
 
   const downloadPdf = () => {
-   setIsHidden(true)
-   setTimeout(() => {generatePDF(getTargetElement, options)} , 100)
-  
-  console.log(isHidden)
-   
-  }
-    
+    setIsHidden(true);
+    setTimeout(() => {
+      generatePDF(getTargetElement, options);
+    }, 100);
 
+    console.log(isHidden);
+  };
 
   return (
     <div
       id="targetRef"
-      className="flex flex-row w-full gap-2 flex-wrap columns-8"
+      className="flex flex-row w-full p-1 gap-1 flex-wrap columns-8 "
     >
-      <TestCard isHidden={isHidden}
+      <TestCard
+        isHidden={isHidden}
         rotateImage={true}
         cardName="Page 4"
         style={{ transform: "rotate(3.142rad)" }}
-       
       />
-      <TestCard isHidden={isHidden}
+      <TestCard
+        isHidden={isHidden}
         rotateImage={true}
         cardName="Page 3"
         style={{ transform: "rotate(3.142rad)" }}
-        
       />
-      <TestCard isHidden={isHidden}
+      <TestCard
+        isHidden={isHidden}
         rotateImage={true}
         cardName="Page 2"
         style={{ transform: "rotate(3.142rad)" }}
-      
       />
-      <TestCard isHidden={isHidden}
+      <TestCard
+        isHidden={isHidden}
         rotateImage={true}
         cardName="Page 1"
         style={{ transform: "rotate(3.142rad)" }}
-    
       />
       <TestCard isHidden={isHidden} cardName="Page 5" />
       <TestCard isHidden={isHidden} cardName="Page 6" />
       <TestCard isHidden={isHidden} cardName="Back Cover" />
       <TestCard isHidden={isHidden} cardName="Front Cover" />
-       <p>{isHidden ? "true": "false"}</p>
-      <button  style={isHidden ? { display: "none" } : { }} onClick={(downloadPdf)}>Download PDF</button>
-
-      
+      <Button
+        className=""
+        style={isHidden ? { display: "none" } : {}}
+        onClick={downloadPdf}
+      >
+        Download PDF
+      </Button>
     </div>
   );
 }
