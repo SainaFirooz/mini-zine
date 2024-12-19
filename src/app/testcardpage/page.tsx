@@ -14,7 +14,7 @@ function page({}: Props) {
 
   const options: Options = {
     filename: "mini-zine.pdf",
-    method: "open",
+    method: "save",
     page: {
       orientation: "landscape",
     },
@@ -75,7 +75,7 @@ function page({}: Props) {
       <Button
         className=""
         style={isHidden ? { display: "none" } : {}}
-        onClick={downloadPdf}
+        onClick={downloadPdf }
       >
         Download PDF
       </Button>

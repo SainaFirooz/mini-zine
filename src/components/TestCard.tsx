@@ -114,7 +114,7 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
   return (
     <div
       ref={containerRef}
-      className="relative bg-cyan-400 w-[299px] h-[423px] rounded overflow-hidden"
+      className="relative bg-cyan-400 w-[299px] h-[423px] overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
