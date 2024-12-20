@@ -114,7 +114,7 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
   return (
     <div
       ref={containerRef}
-      className="relative bg-cyan-400 w-[299px] h-[423px] overflow-hidden"
+      className="relative bg-light-sky w-[299px] h-[423px] overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
@@ -133,7 +133,10 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
           />
         )}
         {showColorPicker && (
-          <div  style={isHidden ? { display: "none" } : {}} className="absolute top-10  z-20 p-2 rounded  ">
+          <div
+            style={isHidden ? { display: "none" } : {}}
+            className="absolute top-10  z-20 p-2 rounded  "
+          >
             <ChromePicker
               color={
                 selectedBlockId
@@ -167,7 +170,6 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
             className="bg-white bg-opacity-75 p-1 rounded text-xs"
           >
             <IoColorPaletteOutline />
-
           </button>
         )}
       </div>
@@ -186,13 +188,16 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
           <input
             type="text"
             value={block.content}
-            onChange={(e) =>
+            onChange={(e) => {
+              const newValue = e.target.value;
               setTextBlocks((prev) =>
-                prev.map((b) =>
-                  b.id === block.id ? { ...b, content: e.target.value } : b
-                )
-              )
-            }
+                newValue.trim()
+                  ? prev.map((b) =>
+                      b.id === block.id ? { ...b, content: newValue } : b
+                    )
+                  : prev.filter((b) => b.id !== block.id)
+              );
+            }}
             className="bg-transparent outline-none"
           />
         </div>
