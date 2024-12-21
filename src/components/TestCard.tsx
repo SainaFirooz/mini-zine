@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { ChromePicker } from "react-color";
-import { IoColorPaletteOutline } from "react-icons/io5";
+import { IoColorPaletteOutline, IoImageOutline } from "react-icons/io5";
+import { useDropzone } from "react-dropzone";
 
 type Props = {
   cardName: string;
@@ -29,14 +30,6 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
   const selectedBlock = useRef<string | null>(null);
 
   const dragOffset = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-
-  function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
-    }
-  }
 
   function addTextBlock() {
     const newTextBlock: TextBlock = {
@@ -111,10 +104,23 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
     setShowColorPicker((prev) => !prev);
   }
 
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    if (acceptedFiles.length > 0) {
+      const file = acceptedFiles[0];
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl);
+    }
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: { "image/*": [] },
+  });
+
   return (
     <div
       ref={containerRef}
-      className="relative bg-light-sky w-[299px] h-[423px] overflow-hidden"
+      className="relative bg-white w-[299px] h-[423px] overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
@@ -155,11 +161,12 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
           </div>
         )}
       </div>
-      <div className="absolute top-2 left-2 z-10 flex space-x-2">
+      {image && (
+        <div className="absolute top-2 left-2 z-10 flex space-x-2">
         <button
           style={isHidden ? { visibility: "hidden" } : {}}
           onClick={addTextBlock}
-          className="bg-white bg-opacity-75 p-1 rounded text-xs"
+          className="bg-slate-200 hover:bg-slate-100 bg-opacity-75 p-1 rounded text-xs"
         >
           Add Text
         </button>
@@ -167,12 +174,13 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
           <button
             style={isHidden ? { display: "none" } : {}}
             onClick={toggleColorPicker}
-            className="bg-white bg-opacity-75 p-1 rounded text-xs"
+            className="bg-slate-200 hover:bg-slate-100 bg-opacity-75 p-1 rounded text-xs"
           >
             <IoColorPaletteOutline />
           </button>
         )}
       </div>
+      )}
 
       {textBlocks.map((block) => (
         <div
@@ -204,19 +212,32 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
       ))}
 
       {image ? null : (
-        <input
-          type="file"
-          accept="image/*"
-          onChange={onChangeImage}
-          className="absolute bottom-2 left-2 bg-white bg-opacity-75 p-1 rounded text-xs"
-        />
+        <div
+          {...getRootProps()}
+          className="absolute bottom-2 left-2 bg-opacity-75 p-6 rounded-md text-xs cursor-pointer flex flex-col justify-center items-center border border-dashed border-gray-400 hover:bg-slate-50	 hover:border-gray-500 transition-all"
+          style={{ width: "95%", height: "95%" }}
+        >
+          <input {...getInputProps()} />
+          <div className="flex flex-col items-center mt-auto mb-4">
+            <IoImageOutline size={40} className="text-gray-500" />
+            {isDragActive ? (
+              <p className="text-gray-700 mt-2 text-sm font-medium">
+                Drop the image here...
+              </p>
+            ) : (
+              <p className="text-gray-700 mt-2 text-sm font-medium">
+                Drag & drop an image, or click to upload
+              </p>
+            )}
+          </div>
+        </div>
       )}
 
       {image && (
         <button
           style={isHidden ? { display: "none" } : {}}
           onClick={() => setImage(null)}
-          className="absolute top-2 right-2 bg-white bg-opacity-75 p-1 rounded text-xs"
+          className="absolute top-2 right-2 bg-slate-200 hover:bg-slate-100 bg-opacity-75 p-1 rounded text-xs"
         >
           Delete Image
         </button>
