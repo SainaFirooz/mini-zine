@@ -31,14 +31,6 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
 
   const dragOffset = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
-  function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
-    }
-  }
-
   function addTextBlock() {
     const newTextBlock: TextBlock = {
       id: Math.random().toString(36).slice(2, 9),
@@ -169,7 +161,8 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
           </div>
         )}
       </div>
-      <div className="absolute top-2 left-2 z-10 flex space-x-2">
+      {image && (
+        <div className="absolute top-2 left-2 z-10 flex space-x-2">
         <button
           style={isHidden ? { visibility: "hidden" } : {}}
           onClick={addTextBlock}
@@ -187,6 +180,7 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
           </button>
         )}
       </div>
+      )}
 
       {textBlocks.map((block) => (
         <div
@@ -217,23 +211,27 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
         </div>
       ))}
 
-{image ? null : (
-  <div
-    {...getRootProps()}
-    className="absolute bottom-2 left-2 bg-opacity-75 p-6 rounded-md text-xs cursor-pointer flex flex-col justify-center items-center border border-dashed border-gray-400 hover:bg-slate-50	 hover:border-gray-500 transition-all"
-    style={{ width: '90%', height: '190px' }}
-  >
-    <input {...getInputProps()} />
-    <div className="flex flex-col items-center">
-      <IoImageOutline size={40} className="text-gray-500" />
-      {isDragActive ? (
-        <p className="text-gray-700 mt-2 text-sm font-medium">Drop the image here...</p>
-      ) : (
-        <p className="text-gray-700 mt-2 text-sm font-medium">Drag & drop an image, or click to upload</p>
+      {image ? null : (
+        <div
+          {...getRootProps()}
+          className="absolute bottom-2 left-2 bg-opacity-75 p-6 rounded-md text-xs cursor-pointer flex flex-col justify-center items-center border border-dashed border-gray-400 hover:bg-slate-50	 hover:border-gray-500 transition-all"
+          style={{ width: "95%", height: "95%" }}
+        >
+          <input {...getInputProps()} />
+          <div className="flex flex-col items-center mt-auto mb-4">
+            <IoImageOutline size={40} className="text-gray-500" />
+            {isDragActive ? (
+              <p className="text-gray-700 mt-2 text-sm font-medium">
+                Drop the image here...
+              </p>
+            ) : (
+              <p className="text-gray-700 mt-2 text-sm font-medium">
+                Drag & drop an image, or click to upload
+              </p>
+            )}
+          </div>
+        </div>
       )}
-    </div>
-  </div>
-)}
 
       {image && (
         <button
