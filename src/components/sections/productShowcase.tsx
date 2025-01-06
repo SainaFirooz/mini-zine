@@ -1,6 +1,6 @@
 "use client";
 
-import productImage from "@/app/assets/product-image.png";
+import productImage from "@/app/assets/minizine-page.webp";
 // import miniZineImage from "@/app/assets/miniZine.png";
 // import miniZineImage from "@/app/assets/miniZineCover.png";
 // import miniZineImage from "@/app/assets/miniZineA.png";
@@ -26,11 +26,10 @@ export const ProductShowcase = () => {
             <div className="tag">Boost your productivity</div>
           </div>
           <h2 className="text-center text-3xl md:text-[54px] md:leading-[60px] font-bold tracking-tighter bg-gradient-to-b from-black to-[#001E80] text-transparent bg-clip-text mt-5">
-            A more effective way to track progress
+          Turn Photos Into Tiny Books
           </h2>
           <p className="text-center text-[22px] leading-[30px] tracking-tight text-[#010D3E] mt-5">
-            Effortlessly turn your ideas into a fully functional, responsive,
-            SaaS website in just minutes with this template.
+            Simple templates for small books with big ideas
           </p>
         </div>
         <div className="relative">

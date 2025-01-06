@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import Link from "next/link";
 
 export default async function Dashboard() {
   const { userId } = await auth();
@@ -10,20 +12,15 @@ export default async function Dashboard() {
   const user = await currentUser();
 
   return (
-    <div className="mt-10 text-start max-w-xl mx-auto bg-neutral-200 p-5 rounded">
-      <h1 className="text-4xl font-bold">Welcome</h1>
-      <ul className="list-none mt-10">
-        <li className="mb-2">
-          <span className="font-semibold">First Name:</span> {user?.firstName}
-        </li>
-        <li className="mb-2">
-          <span className="font-semibold">Last Name:</span> {user?.lastName}
-        </li>
-        <li className="mb-2">
-          <span className="font-semibold">Email:</span>{" "}
-          {user?.emailAddresses[0].emailAddress}
-        </li>
-      </ul>
+    <div className="mt-10 text-start max-w-xl mx-auto bg-white p-5 rounded">
+      <h1 className="text-4xl font-bold">Welcome {user?.firstName} {user?.lastName} </h1>
+     
+     <div className="mt-5">
+     <Link href="/mini-zine">
+      <Button>Create minizine</Button>
+              </Link>
+     </div>
+     
     </div>
   );
 }
