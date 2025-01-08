@@ -1,15 +1,18 @@
 "use client";
 
-import acmeLogo from "@/app/assets/logo-acme.png";
-import quantumLogo from "@/app/assets/logo-quantum.png";
-import echoLogo from "@/app/assets/logo-echo.png";
-import celestialLogo from "@/app/assets/logo-celestial.png";
-import pulseLogo from "@/app/assets/logo-pulse.png";
-import apexLogo from "@/app/assets/logo-apex.png";
-import Image from "next/image";
 import { motion } from "framer-motion";
 
 export const LogoTicker = () => {
+  const steps = [
+    { id: 1, emoji: "📸", text: "Snap 8 pictures" },
+    { id: 2, emoji: "📤", text: "Upload your images" },
+    { id: 3, emoji: "🖼️", text: "Arrange them in the template" },
+    { id: 4, emoji: "🖨️", text: "Print your zine" },
+    { id: 5, emoji: "🎉", text: "Fold, and you're done!" },
+  ];
+
+  const cta = { emoji: "🚀", text: "✨ Ready to start? Upload now!" };
+
   return (
     <div className="py-8 md:py-12 bg-white">
       <div className="container">
@@ -26,68 +29,28 @@ export const LogoTicker = () => {
               repeatType: "loop",
             }}
           >
-            <Image
-              src={acmeLogo}
-              alt="Acme Logo"
-              className="logo-ticker-image"
-            />
-            <Image
-              src={quantumLogo}
-              alt="Quantum Logo"
-              className="logo-ticker-image"
-            />
-            <Image
-              src={echoLogo}
-              alt="Echo Logo"
-              className="logo-ticker-image"
-            />
-            <Image
-              src={celestialLogo}
-              alt="Celestial Logo"
-              className="logo-ticker-image"
-            />
-            <Image
-              src={pulseLogo}
-              alt="Pulse Logo"
-              className="logo-ticker-image"
-            />
-            <Image
-              src={apexLogo}
-              alt="Apex Logo"
-              className="logo-ticker-image"
-            />
-
-            {/* Second set of logos for animation */}
-            <Image
-              src={acmeLogo}
-              alt="Acme Logo"
-              className="logo-ticker-image"
-            />
-            <Image
-              src={quantumLogo}
-              alt="Quantum Logo"
-              className="logo-ticker-image"
-            />
-            <Image
-              src={echoLogo}
-              alt="Echo Logo"
-              className="logo-ticker-image"
-            />
-            <Image
-              src={celestialLogo}
-              alt="Celestial Logo"
-              className="logo-ticker-image"
-            />
-            <Image
-              src={pulseLogo}
-              alt="Pulse Logo"
-              className="logo-ticker-image"
-            />
-            <Image
-              src={apexLogo}
-              alt="Apex Logo"
-              className="logo-ticker-image"
-            />
+            {steps.map((step) => (
+              <div key={step.id} className="flex items-center gap-2">
+                <span className="text-2xl">{step.emoji}</span>
+                <p className="text-xl font-medium text-gray-800">{step.text}</p>
+              </div>
+            ))}
+            {/* Add CTA at the end */}
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">{cta.emoji}</span>
+              <p className="text-xl font-bold text-indigo-600">{cta.text}</p>
+            </div>
+            {/* Duplicate steps for seamless animation */}
+            {steps.map((step) => (
+              <div key={`duplicate-${step.id}`} className="flex items-center gap-2">
+                <span className="text-2xl">{step.emoji}</span>
+                <p className="text-xl font-medium text-gray-800">{step.text}</p>
+              </div>
+            ))}
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">{cta.emoji}</span>
+              <p className="text-xl font-bold text-indigo-600">{cta.text}</p>
+            </div>
           </motion.div>
         </div>
       </div>

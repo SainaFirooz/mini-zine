@@ -1,10 +1,9 @@
 "use client";
 
 import ArrowIcon from "@/app/assets/arrow-right.svg";
-import cogImage from "@/app/assets/cog.png";
-import cylinderImage from "@/app/assets/cylinder.png";
-import noodleImage from "@/app/assets/noodle.png";
-import Image from "next/image";
+import bookImage from "@/app/assets/books.png"
+import cameraImage from "@/app/assets/camera.png"
+import polaroidImage from "@/app/assets/polariod.png"
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
@@ -43,9 +42,9 @@ export const Hero = () => {
           </div>
           <div className="mt-20 md:mt-0 md:h-[648px] md:flex-1 relative">
             <motion.img
-              src={cogImage.src}
-              alt="Cog image"
-              className="md:absolute md:h-full md:w-auto md:max-w-none md:-left-6 lg:left-0"
+              src={bookImage.src}
+              alt="Book image"
+              className="md:absolute md:h-full md:w-auto md:max-w-none md:-left-0 lg:left-8"
               animate={{
                 translateY: [-30, 30],
               }}
@@ -57,8 +56,8 @@ export const Hero = () => {
               }}
             />
             <motion.img
-              src={cylinderImage.src}
-              alt="Cylinder image"
+              src={cameraImage.src}
+              alt="Camera image"
               width={220}
               height={220}
               className="hidden md:block -top-8 -left-32 md:absolute"
@@ -67,8 +66,8 @@ export const Hero = () => {
               }}
             />
             <motion.img
-              src={noodleImage.src}
-              alt="Noodle image"
+              src={polaroidImage.src}
+              alt="Polaroid image"
               width={220}
               className="hidden lg:block absolute top-[524px] left-[448px] rotate-[30deg]"
               style={{

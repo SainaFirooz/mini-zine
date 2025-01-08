@@ -1,11 +1,8 @@
 "use client";
 
 import productImage from "@/app/assets/minizine-page.webp";
-// import miniZineImage from "@/app/assets/miniZine.png";
-// import miniZineImage from "@/app/assets/miniZineCover.png";
-// import miniZineImage from "@/app/assets/miniZineA.png";
-import pyramidImage from "@/app/assets/pyramid.png";
-import tubeImage from "@/app/assets/tube.png";
+import lightbulbImage from "@/app/assets/lightbulb.png"
+import fireworkImage from "@/app/assets/firework.png"
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
@@ -35,8 +32,8 @@ export const ProductShowcase = () => {
         <div className="relative">
           <Image src={productImage} alt="Minizine image" className="mt-10" />
           <motion.img
-            src={pyramidImage.src}
-            alt="Pyramid image"
+            src={lightbulbImage.src}
+            alt="Lightbulb image"
             height={262}
             width={262}
             className="hidden md:block absolute -right-36 -top-32"
@@ -45,8 +42,8 @@ export const ProductShowcase = () => {
             }}
           />
           <motion.img
-            src={tubeImage.src}
-            alt="Tube image"
+            src={fireworkImage.src}
+            alt="Firework image"
             height={248}
             width={248}
             className="hidden md:block absolute bottom-24 -left-36"
