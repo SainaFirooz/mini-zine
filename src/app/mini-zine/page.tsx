@@ -35,10 +35,10 @@ function page({}: Props) {
   const downloadPdf = () => {
     setIsHidden(true);
     setTimeout(() => {
-      generatePDF(getTargetElement, options);
+      generatePDF(getTargetElement, options).then(() => {
+        router.push("/foldingInstructions");
+      });
     }, 100);
-
-    console.log(isHidden);
   };
 
   return (
@@ -81,13 +81,13 @@ function page({}: Props) {
       >
         Download PDF
       </Button>
-      <Button
+      {/* <Button
           className=""
           variant="link"
           onClick={() => router.push("/foldingInstructions")}
         >
           How to Fold Your Mini Zine
-        </Button>
+        </Button> */}
     </div>
   );
 }
