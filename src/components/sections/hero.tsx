@@ -1,11 +1,12 @@
 "use client";
 
 import ArrowIcon from "@/app/assets/arrow-right.svg";
-import bookImage from "@/app/assets/books.png"
-import cameraImage from "@/app/assets/camera.png"
-import polaroidImage from "@/app/assets/polariod.png"
+import bookImage from "@/app/assets/book.png";
+import cameraImage from "@/app/assets/camera.png";
+import polaroidImage from "@/app/assets/polariod.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
 
 export const Hero = () => {
   const heroRef = useRef(null);
@@ -33,18 +34,18 @@ export const Hero = () => {
               personal photographs and text.
             </p>
             <div className="flex gap-1 items-center mt-[30px]">
-              <button className="btn btn-primary">Sign up</button>
-              <button className="btn btn-text gap-1">
+              <Link href="/sign-up" className="btn btn-primary">Sign up</Link>
+              <Link href="/about" className="btn btn-text gap-1">
                 <span>Learn More</span>
                 <ArrowIcon className="h-5 w-5" />
-              </button>
+              </Link>
             </div>
           </div>
           <div className="mt-20 md:mt-0 md:h-[648px] md:flex-1 relative">
             <motion.img
               src={bookImage.src}
               alt="Book image"
-              className="md:absolute md:h-full md:w-auto md:max-w-none md:-left-0 lg:left-8"
+              className="md:absolute md:h-full md:w-auto md:max-w-none  md:-left-8 lg:left-8"
               animate={{
                 translateY: [-30, 30],
               }}

@@ -21,7 +21,6 @@ export default async function Dashboard() {
       <Button className="btn btn-primary">Create minizine</Button>
               </Link>
      </div>
-    
     </div>
   );
 }

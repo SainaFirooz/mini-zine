@@ -52,7 +52,7 @@ export default function AboutPage() {
         {/* Call to Action */}
         <div className="text-center">
           <a
-            href="/"
+            href="/sign-up"
             className="btn btn-primary"
           >
             Start creating your Mini Zine now!

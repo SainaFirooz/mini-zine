@@ -3,6 +3,7 @@
 import TestCard from "@/components/TestCard";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import generatePDF, { Options } from "react-to-pdf";
 
@@ -11,6 +12,7 @@ type Props = {};
 function page({}: Props) {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [isHidden, setIsHidden] = useState<boolean>(false);
+  const router = useRouter();
 
   const options: Options = {
     filename: "mini-zine.pdf",
@@ -79,6 +81,13 @@ function page({}: Props) {
       >
         Download PDF
       </Button>
+      <Button
+          className=""
+          variant="link"
+          onClick={() => router.push("/foldingInstructions")}
+        >
+          How to Fold Your Mini Zine
+        </Button>
     </div>
   );
 }

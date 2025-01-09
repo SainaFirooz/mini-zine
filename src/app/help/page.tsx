@@ -48,7 +48,7 @@ export default function HelpPage() {
                 </div>
               )}
             </div>
-            <div>
+            {/* <div>
               <button
                 className="flex items-center justify-between w-full bg-gray-200 p-4 rounded-lg hover:bg-gray-300"
                 onClick={() => toggleAccordion(2)}
@@ -64,7 +64,7 @@ export default function HelpPage() {
                   <p>Yes! You can create an account and save your projects to access them anytime. Just log in and you'll find your saved Mini Zines.</p>
                 </div>
               )}
-            </div>
+            </div> */}
             <div>
               <button
                 className="flex items-center justify-between w-full bg-gray-200 p-4 rounded-lg hover:bg-gray-300"
