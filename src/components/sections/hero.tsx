@@ -1,7 +1,7 @@
 "use client";
 
 import ArrowIcon from "@/app/assets/arrow-right.svg";
-import bookImage from "@/app/assets/book.png";
+import bookImage from "@/app/assets/books.png";
 import cameraImage from "@/app/assets/camera.png";
 import polaroidImage from "@/app/assets/polariod.png";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -24,7 +24,6 @@ export const Hero = () => {
       <div className="container">
         <div className="md:flex items-center">
           <div className="md:w-[478px]">
-            {/* <div className="tag">Version 2.0 is here</div> */}
             <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-gradient-to-b from-black to-[#001E80] text-transparent bg-clip-text mt-6">
               Create your own Mini Zine 
             </h1>
@@ -34,8 +33,8 @@ export const Hero = () => {
               personal photographs and text.
             </p>
             <div className="flex gap-1 items-center mt-[30px]">
-              <Link href="/sign-up" className="btn btn-primary">Sign up</Link>
-              <Link href="/about" className="btn btn-text gap-1">
+              <Link href="/sign-up" className="btn btn-primary hover:bg-gray-400 transition-colors duration-300 ease-in-out">Sign up</Link>
+              <Link href="/about" className="btn btn-text gap-1 hover:text-gray-500 hover:underline transition-colors duration-200 ease-in-out">
                 <span>Learn More</span>
                 <ArrowIcon className="h-5 w-5" />
               </Link>
@@ -45,7 +44,7 @@ export const Hero = () => {
             <motion.img
               src={bookImage.src}
               alt="Book image"
-              className="md:absolute md:h-full md:w-auto md:max-w-none  md:-left-8 lg:left-8"
+              className="md:absolute md:h-full md:w-auto md:max-w-none md:-left-8 lg:left-8"
               animate={{
                 translateY: [-30, 30],
               }}
@@ -70,7 +69,7 @@ export const Hero = () => {
               src={polaroidImage.src}
               alt="Polaroid image"
               width={220}
-              className="hidden lg:block absolute top-[524px] left-[448px] rotate-[30deg]"
+              className="hidden lg:block absolute top-[524px] left-[400px] rotate-[30deg]"
               style={{
                 rotate: 30,
                 translateY: translateY,

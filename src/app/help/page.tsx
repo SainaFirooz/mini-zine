@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { FaQuestionCircle, FaTools, FaEnvelope } from "react-icons/fa"; // For icons
+import { FaQuestionCircle, FaTools} from "react-icons/fa"; 
 
-// Type for the state of the active accordion
 type AccordionState = number | null;
 
 export default function HelpPage() {
@@ -17,7 +16,6 @@ export default function HelpPage() {
     <div className="bg-gradient-to-b from-[#FFFFFF] to-[#D2DCFF] py-24 overflow-x-clip">
       <div className="container mx-auto px-6 md:px-12 lg:px-20">
         
-        {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-center text-3xl md:text-[54px] md:leading-[60px] font-bold tracking-tighter bg-gradient-to-b from-black to-[#001E80] text-transparent bg-clip-text mt-5">
             Need Help? We're Here for You!
@@ -26,8 +24,6 @@ export default function HelpPage() {
             Browse through the frequently asked questions or contact us directly if you need more assistance.
           </p>
         </div>
-
-        {/* FAQs Section */}
         <section className="mb-12">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Frequently Asked Questions</h2>
           <div className="space-y-4">
@@ -48,23 +44,6 @@ export default function HelpPage() {
                 </div>
               )}
             </div>
-            {/* <div>
-              <button
-                className="flex items-center justify-between w-full bg-gray-200 p-4 rounded-lg hover:bg-gray-300"
-                onClick={() => toggleAccordion(2)}
-              >
-                <span className="text-lg text-gray-800">
-                  <FaQuestionCircle className="inline-block mr-2" />
-                  Can I save my Mini Zine for later?
-                </span>
-                <span>{activeAccordion === 2 ? "−" : "+"}</span>
-              </button>
-              {activeAccordion === 2 && (
-                <div className="bg-gray-100 p-4 rounded-lg">
-                  <p>Yes! You can create an account and save your projects to access them anytime. Just log in and you'll find your saved Mini Zines.</p>
-                </div>
-              )}
-            </div> */}
             <div>
               <button
                 className="flex items-center justify-between w-full bg-gray-200 p-4 rounded-lg hover:bg-gray-300"
@@ -84,8 +63,6 @@ export default function HelpPage() {
             </div>
           </div>
         </section>
-
-        {/* Troubleshooting Tips */}
         <section className="mb-12">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Troubleshooting Tips</h2>
           <div className="space-y-4">
@@ -112,8 +89,6 @@ export default function HelpPage() {
             </div>
           </div>
         </section>
-
-        {/* Contact Form */}
         <section className="mb-12">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Contact Us</h2>
           <form className="bg-white p-6 rounded-lg shadow-md space-y-6">

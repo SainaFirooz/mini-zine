@@ -10,8 +10,6 @@ const FoldingInstructions = () => {
         Follow these steps to fold your printed Mini Zine into a booklet. The
         diagram below shows the entire process.
       </p>
-
-      {/* Displaying the folding instructions image */}
       <div className="flex justify-center mb-6">
         <Image
           src={foldingInstructionsImage}
@@ -21,8 +19,6 @@ const FoldingInstructions = () => {
           className="rounded-md shadow-md"
         />
       </div>
-
-      {/* Step-by-step instructions with emojis */}
       <div className="text-left max-w-2xl mx-auto">
         <ol className="list-inside space-y-4">
           <li>
