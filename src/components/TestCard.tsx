@@ -120,11 +120,11 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
   return (
     <div
       ref={containerRef}
-      className="relative bg-white w-[299px] h-[423px] overflow-hidden"
+      className="relative bg-white w-full h-100 border border-black border-dotted lg:w-1/4 md:w-1/4  p-4 sm:w-1/2"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
-      <div className="relative flex flex-col items-center justify-center h-full text-center">
+      <div className="flex flex-col items-center justify-center  text-center">
         <h1 className="" style={style}>
           {cardName}
         </h1>
@@ -163,23 +163,23 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
       </div>
       {image && (
         <div className="absolute top-2 left-2 z-10 flex space-x-2">
-        <button
-          style={isHidden ? { visibility: "hidden" } : {}}
-          onClick={addTextBlock}
-          className="bg-slate-200 hover:bg-slate-100 bg-opacity-75 p-1 rounded text-xs"
-        >
-          Add Text
-        </button>
-        {textBlocks.length > 0 && (
           <button
-            style={isHidden ? { display: "none" } : {}}
-            onClick={toggleColorPicker}
+            style={isHidden ? { visibility: "hidden" } : {}}
+            onClick={addTextBlock}
             className="bg-slate-200 hover:bg-slate-100 bg-opacity-75 p-1 rounded text-xs"
           >
-            <IoColorPaletteOutline />
+            Add Text
           </button>
-        )}
-      </div>
+          {textBlocks.length > 0 && (
+            <button
+              style={isHidden ? { display: "none" } : {}}
+              onClick={toggleColorPicker}
+              className="bg-slate-200 hover:bg-slate-100 bg-opacity-75 p-1 rounded text-xs"
+            >
+              <IoColorPaletteOutline />
+            </button>
+          )}
+        </div>
       )}
 
       {textBlocks.map((block) => (
@@ -214,8 +214,7 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
       {image ? null : (
         <div
           {...getRootProps()}
-          className="absolute bottom-2 left-2 bg-opacity-75 p-6 rounded-md text-xs cursor-pointer flex flex-col justify-center items-center border border-dashed border-gray-400 hover:bg-slate-50	 hover:border-gray-500 transition-all"
-          style={{ width: "95%", height: "95%" }}
+          className="bottom-2 left-2 bg-opacity-75 p-6 rounded-md text-xs cursor-pointer flex flex-col justify-center items-center border border-dashed border-gray-400 hover:bg-slate-50	 hover:border-gray-500 transition-all h-80"
         >
           <input {...getInputProps()} />
           <div className="flex flex-col items-center mt-auto mb-4">

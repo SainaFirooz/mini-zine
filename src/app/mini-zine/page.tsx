@@ -4,49 +4,67 @@ import TestCard from "@/components/TestCard";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import generatePDF, { Resolution, Options, Margin } from "react-to-pdf";
 
-import generatePDF, { Options } from "react-to-pdf";
 
 type Props = {};
 
 function page({}: Props) {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [isHidden, setIsHidden] = useState<boolean>(false);
+  const [fixedStyle, setFixedStyle ] = useState(false)
   const router = useRouter();
 
   const options: Options = {
+    
     filename: "mini-zine.pdf",
     method: "save",
+    resolution: Resolution.HIGH,
     page: {
       orientation: "landscape",
+      margin: Margin.NONE,  
     },
   };
 
   // Callback för att hantera uppladdade bilder
-  const handleImageUpload = (index: number, imageUrl: string) => {
-    setImageUrls((prev) => {
-      const newUrls = [...prev];
-      newUrls[index] = imageUrl;
-      return newUrls;
-    });
-  };
+  // const handleImageUpload = (index: number, imageUrl: string) => {
+  //   setImageUrls((prev) => {
+  //     const newUrls = [...prev];
+  //     newUrls[index] = imageUrl;
+  //     return newUrls;
+  //   });
+  // };
+
   const getTargetElement = () => document.getElementById("targetRef");
 
+
   const downloadPdf = () => {
-    setIsHidden(true);
-    setTimeout(() => {
-      generatePDF(getTargetElement, options).then(() => {
-        router.push("/foldingInstructions");
-      });
-    }, 100);
+    const target = getTargetElement();
+    if (target) {
+      // target.classList.add("pdf-layout");
+  
+      setIsHidden(true);
+      setFixedStyle(true)
+      setTimeout(() => {
+        generatePDF(getTargetElement, options).then(() => {
+          // Remove the class after PDF generation
+          // target.classList.remove("pdf-layout");
+          router.push("/foldingInstructions");
+        });
+      }, 100);
+    }
   };
 
+
   return (
+    <>
     <div
       id="targetRef"
-      className="flex flex-row w-full p-1 gap-1 flex-wrap columns-8 "
+      // className="grid w-full grid-cols-4 gap-1 md:grid-cols-4 md:gap-1 "
+     className={`flex flex-wrap`}
+
     >
-      <TestCard
+      <TestCard 
         isHidden={isHidden}
         rotateImage={true}
         cardName="Page 4"
@@ -74,13 +92,7 @@ function page({}: Props) {
       <TestCard isHidden={isHidden} cardName="Page 6" />
       <TestCard isHidden={isHidden} cardName="Back Cover" />
       <TestCard isHidden={isHidden} cardName="Front Cover" />
-      <Button
-        className=""
-        style={isHidden ? { display: "none" } : {}}
-        onClick={downloadPdf }
-      >
-        Download PDF
-      </Button>
+ 
       {/* <Button
           className=""
           variant="link"
@@ -89,6 +101,14 @@ function page({}: Props) {
           How to Fold Your Mini Zine
         </Button> */}
     </div>
+         <Button
+         className=""
+         style={isHidden ? { display: "none" } : {}}
+         onClick={downloadPdf }
+       >
+         Download PDF
+       </Button>
+       </>
   );
 }
 
