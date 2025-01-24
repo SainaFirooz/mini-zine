@@ -58,7 +58,9 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
 		spacing: {
-			"100": "26.8rem"
+			"100": "26.5rem",
+			"A4-width": "29.7cm",
+			"A4-height": "21cm",
 		}
   	},
   },

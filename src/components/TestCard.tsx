@@ -10,6 +10,8 @@ type Props = {
   style?: React.CSSProperties;
   rotateImage?: boolean;
   isHidden: boolean;
+  className?: string
+  fixedStyling: boolean
 };
 
 interface TextBlock {
@@ -20,7 +22,7 @@ interface TextBlock {
   color: string;
 }
 
-function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
+function TestCard({ cardName, style, rotateImage, isHidden, fixedStyling}: Props) {
   const [image, setImage] = useState<string | null>(null);
   const [textBlocks, setTextBlocks] = useState<TextBlock[]>([]);
   const [showColorPicker, setShowColorPicker] = useState(false);
@@ -120,11 +122,15 @@ function TestCard({ cardName, style, rotateImage, isHidden }: Props) {
   return (
     <div
       ref={containerRef}
-      className="relative bg-white w-full h-100 border border-black border-dotted lg:w-1/4 md:w-1/4  p-4 sm:w-1/2"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
+      className={`${
+        fixedStyling
+          ? "relative bg-white w-1/4  border border-black border-dotted"
+          : "relative bg-white w-full h-96 border border-black border-dotted lg:w-1/4 md:w-1/3.5 sm:w-1/2 p-4"
+      }`} 
     >
-      <div className="flex flex-col items-center justify-center  text-center">
+      <div className="flex flex-col items-center justify-center text-center">
         <h1 className="" style={style}>
           {cardName}
         </h1>
