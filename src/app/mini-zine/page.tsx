@@ -23,15 +23,6 @@ function page({}: Props) {
     },
   };
 
-  // Callback för att hantera uppladdade bilder
-  // const handleImageUpload = (index: number, imageUrl: string) => {
-  //   setImageUrls((prev) => {
-  //     const newUrls = [...prev];
-  //     newUrls[index] = imageUrl;
-  //     return newUrls;
-  //   });
-  // };
-
   const getTargetElement = () => document.getElementById("targetRef");
 
   const downloadPdf = () => {
@@ -58,68 +49,67 @@ function page({}: Props) {
           fixedStyle
             ? "flex flex-wrap w-A4-width h-A4-height"
             : "flex flex-wrap"
-        }`} 
+        }`}
       >
-    <TestCard
-    fixedStyling={fixedStyle}
-    isHidden={isHidden}
-    rotateImage={true}
-    cardName="Page 4"
-    style={{
-      transform: "rotate(3.142rad)",
-    }}
-  />
-  <TestCard
-  fixedStyling={fixedStyle}
-    isHidden={isHidden}
-    rotateImage={true}
-    cardName="Page 3"
-    style={{
-      transform: "rotate(3.142rad)",
-    }}
-  />
-  <TestCard
-  fixedStyling={fixedStyle}
-    isHidden={isHidden}
-    rotateImage={true}
-    cardName="Page 2"
-    style={{
-      transform: "rotate(3.142rad)",
-    }}
-  />
-  <TestCard
-  fixedStyling={fixedStyle}
-    isHidden={isHidden}
-    rotateImage={true}
-    cardName="Page 1"
-    style={{
-      transform: "rotate(3.142rad)",
-    }}
-  />
-  <TestCard
-  fixedStyling={fixedStyle}
-    isHidden={isHidden}
-    cardName="Page 5"
-  />
-  <TestCard
-  fixedStyling={fixedStyle}
-    isHidden={isHidden}
-    cardName="Page 6"
-  />
-  <TestCard
-  fixedStyling={fixedStyle}
-    isHidden={isHidden}
-    cardName="Back Cover"
-
-  />
-  <TestCard
-  fixedStyling={fixedStyle}
-    isHidden={isHidden}
-    cardName="Front Cover"
-  />
+        <TestCard
+          fixedStyling={fixedStyle}
+          isHidden={isHidden}
+          rotateImage={true}
+          cardName="Page 4"
+          style={{
+            transform: "rotate(3.142rad)",
+          }}
+        />
+        <TestCard
+          fixedStyling={fixedStyle}
+          isHidden={isHidden}
+          rotateImage={true}
+          cardName="Page 3"
+          style={{
+            transform: "rotate(3.142rad)",
+          }}
+        />
+        <TestCard
+          fixedStyling={fixedStyle}
+          isHidden={isHidden}
+          rotateImage={true}
+          cardName="Page 2"
+          style={{
+            transform: "rotate(3.142rad)",
+          }}
+        />
+        <TestCard
+          fixedStyling={fixedStyle}
+          isHidden={isHidden}
+          rotateImage={true}
+          cardName="Page 1"
+          style={{
+            transform: "rotate(3.142rad)",
+          }}
+        />
+        <TestCard
+          fixedStyling={fixedStyle}
+          isHidden={isHidden}
+          cardName="Page 5"
+        />
+        <TestCard
+          fixedStyling={fixedStyle}
+          isHidden={isHidden}
+          cardName="Page 6"
+        />
+        <TestCard
+          fixedStyling={fixedStyle}
+          isHidden={isHidden}
+          cardName="Back Cover"
+        />
+        <TestCard
+          fixedStyling={fixedStyle}
+          isHidden={isHidden}
+          cardName="Front Cover"
+        />
       </div>
       <Button
-        className=""
+        className="mt-2"
         style={isHidden ? { display: "none" } : {}}
         onClick={downloadPdf}
       >
