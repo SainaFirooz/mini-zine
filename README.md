@@ -1,4 +1,4 @@
-# Mini Zine Creator
+# Mini Zine Template
 
 ## Overview
 
