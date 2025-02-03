@@ -15,7 +15,7 @@ function page({}: Props) {
 
   const options: Options = {
     filename: "mini-zine.pdf",
-    method: "open",
+    method: "save",
     resolution: Resolution.HIGH,
     page: {
       orientation: "landscape",
@@ -33,7 +33,7 @@ function page({}: Props) {
 
       setTimeout(() => {
         generatePDF(getTargetElement, options).then(() => {
-          // router.push("/foldingInstructions");
+          router.push("/foldingInstructions");
         });
         setFixedStyle(false);
         setIsHidden(false);

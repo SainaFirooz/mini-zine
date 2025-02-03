@@ -15,7 +15,7 @@ The Mini Zine Template is a web-based application designed to help people easily
 - Customizable text options
 - Automatic image rotation for proper Mini Zine formatting
 - Step-by-step layout to help users position content correctly
-- PDF generation optimized for home and office printers
+- PDF generation for eady printing
 
 ## Technologies Used
 
@@ -23,6 +23,7 @@ The Mini Zine Template is a web-based application designed to help people easily
 - **Clerk:** Integrated for authentication and user management.
 - **React-dropzone:** Enables drag-and-drop image uploads.
 - **React-color:** Provides color selection for text customization.
+- **React-to-PDF** Converts the Mini Zine to a printable PDF
 
 ## Installation
 
