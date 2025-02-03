@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Mini Zine Creator is a web-based application designed to help people easily create and print their own Mini Zines. The tool provides a simple interface for uploading images, adding text, and generating a printable PDF, making the creative process accessible and engaging.
+The Mini Zine Template is a web-based application designed to help people easily create and print their own Mini Zines. The tool provides a simple interface for uploading images, adding text, and generating a printable PDF, making the creative process accessible and engaging.
 
 ## Live Demo
 
